@@ -20,11 +20,12 @@ library(leafem)
 library(dbscan)
 options(shiny.maxRequestSize = 1000 * 1024^2)
 
+# Scripts renamed (Global_data.R, UI_layout.R, Server_logic.R) so Shiny on the server does not auto-run them
 # Run global script containing all your relevant data ----
-source("Global.R")
+source("Global_data.R")
 
 # Define UI for visualisation ----
-source("UI.R")
+source("UI_layout.R")
 ui <- navbarPage("Instream large wood on the River Isonzo", id = 'nav',
                  tabPanel("Map",
                           div(class="outer",
@@ -60,7 +61,7 @@ ui <- navbarPage("Instream large wood on the River Isonzo", id = 'nav',
 
 # Define the server that performs all necessary operations ----
 server <- function(input, output, session){
-  source("Server.R", local = TRUE)
+  source("Server_logic.R", local = TRUE)
 }
 
 # Run the application ----
