@@ -11,8 +11,10 @@
 # Leaflet map output
 # Changed: bridges removed from here and added with pop ups below (Task 4)
 output$map <- renderLeaflet({
-  leaflet() %>%
-    setView(lng=13.533545, lat=45.850065, zoom=11.3) %>%
+  # Changed: map opens fitted to the river extent (any screen size), with space for the clustering panel
+  leaflet(options = leafletOptions(zoomSnap = 0.25, zoomDelta = 0.5)) %>%
+    fitBounds(river_bb[["xmin"]], river_bb[["ymin"]], river_bb[["xmax"]], river_bb[["ymax"]],
+              options = list(paddingTopLeft = c(300, 40), paddingBottomRight = c(210, 110))) %>%
     # Changed: satellite imagery shown by default (imagery used to identify large wood and place catchers)
     addProviderTiles (providers$Esri.WorldImagery, group = "Satellite") %>%
     addProviderTiles (providers$OpenStreetMap, group = "Street map") %>%

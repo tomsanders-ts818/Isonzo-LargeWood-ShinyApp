@@ -227,3 +227,6 @@ p_geomunit <- ggplot(gu_df) +
 
 # DBSCAN sliders: large wood coordinates in metres (EPSG:32633) so eps is in metres
 lw_xy <- st_coordinates(st_transform(clusters, crs = 32633))
+
+# River extent used to set the opening view of the map
+river_bb <- st_bbox(river)
