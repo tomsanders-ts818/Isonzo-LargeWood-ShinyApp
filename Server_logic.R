@@ -17,19 +17,12 @@ output$map <- renderLeaflet({
     # Satellite basemap (imagery used to identify large wood)
     addProviderTiles (providers$Esri.WorldImagery, group = "Satellite") %>%
     # Task 7: slope raster
-    addRasterImage(slope, colors = pal_slope, opacity = 0.6, group = "Slope") %>%
-    addRasterImage(heatmap, colors = pal_heatmap, opacity = 0.7, layerId = "LW density (KDE)", group = "Heatmap") %>%
-    # Section 2.5: image query (switched off while testing, crashes R intermittently)
-    addImageQuery(
-      heatmap_r,
-      layerId = "LW density (KDE)",
-      prefix = "",
-      digits = 2,
-      position = "topright",
-      type = "mousemove", # Show values on mouse movement
-      options = queryOptions(position = "topright"), # Remove the TRUE text
-      group = "Heatmap"
-    ) %>%
+    addRasterImage(slope, colors = pal_slope, opacity = 0.6, project = FALSE,
+                   maxBytes = 8 * 1024 * 1024, group = "Slope") %>%
+    # Changed: rasters already in web map projection (project = FALSE)
+    addRasterImage(heatmap, colors = pal_heatmap, opacity = 0.7, project = FALSE,
+                   layerId = "LW density (KDE)", group = "Heatmap") %>%
+    # Section 2.5: image query removed, embeds every raster cell in the page and exceeds server memory
     # Extra layers: analysis extent and upstream zones
     addPolygons(data = extent_buffer, color = "#333333", weight = 1.5,
                 dashArray = "6", fillColor = "#808080", fillOpacity = 0.3,

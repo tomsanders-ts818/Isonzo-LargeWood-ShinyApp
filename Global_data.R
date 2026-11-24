@@ -88,17 +88,16 @@ nearest_lines <- st_read("data/LW_to_nearest_bridge.shp")
 nearest_lines <- st_transform(nearest_lines, crs = 4326)
 
 # Load heatmap (KDE, radius 250 m, clipped to channel and floodplain, QGIS practical 2)
-heatmap <- rast("data/LW_heatmap_r250_clipped.tif")
-heatmap <- project(heatmap, crs(river))
-# Values below 1 set to NA so only hot-spots show (same as min = 1 in QGIS)
-heatmap[heatmap < 1] <- NA
+# Changed: pre-projected to web map projection (EPSG:3857, ~10 m) with values below 1 removed,
+# so the online server does not run out of memory
+heatmap <- rast("data/heatmap_3857.tif")
 # Changed: YlOrRd so the highest density is the darkest colour on a light basemap
 pal_heatmap <- colorNumeric(palette = "YlOrRd", domain = na.omit(values(heatmap)),
                             na.color = "transparent")
 
 # Task 7: load slope (10 m, from DTM in practical 3)
-slope <- rast("data/P3_slope_10m.tif")
-slope <- project(slope, crs(river))
+# Changed: pre-projected to web map projection (EPSG:3857, ~10 m) to reduce memory use online
+slope <- rast("data/slope_3857.tif")
 # Colour scale capped at 98th percentile so the flat valley floor shows detail
 slope_q98 <- quantile(values(slope), 0.98, na.rm = TRUE)
 slope <- clamp(slope, upper = slope_q98, values = TRUE)
@@ -225,8 +224,6 @@ p_geomunit <- ggplot(gu_df) +
   theme_minimal(base_size = 14) +
   theme(legend.position = "bottom")
 
-# Convert heatmap to raster package format for the image query (section 2.5)
- heatmap_r <- raster(heatmap)
 
 # DBSCAN sliders: large wood coordinates in metres (EPSG:32633) so eps is in metres
 lw_xy <- st_coordinates(st_transform(clusters, crs = 32633))

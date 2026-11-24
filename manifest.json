@@ -3111,6 +3111,9 @@
     "data/BridgesIsonzo_32633.shx": {
       "checksum": "f14834410febb2953af6060b3cc2b093"
     },
+    "data/heatmap_3857.tif": {
+      "checksum": "7110f59837ce85627204a7a4f1093e49"
+    },
     "data/LW_dbscan_250m_min5.cpg": {
       "checksum": "a284df1155ec3e67286080500df36a9a"
     },
@@ -3231,11 +3234,14 @@
     "data/RiverIsonzo_32633.shx": {
       "checksum": "5262b9822ec97fb7daccad2972c7ad02"
     },
+    "data/slope_3857.tif": {
+      "checksum": "55785a05269ba53f5b560b5b0bce1475"
+    },
     "Global_data.R": {
-      "checksum": "c3217af8023320b4aaff0c237e6886fe"
+      "checksum": "896d9ab23b0353151c832172e21cc63f"
     },
     "Server_logic.R": {
-      "checksum": "5db6ee89253689585b0d6baa4bf11f28"
+      "checksum": "f6e68fe07ae9d8e6ee5e7d3d6d198813"
     },
     "UI_layout.R": {
       "checksum": "8d8cadc58ecfd83d57c50cd738fc0513"
