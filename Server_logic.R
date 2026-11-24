@@ -13,9 +13,9 @@
 output$map <- renderLeaflet({
   leaflet() %>%
     setView(lng=13.533545, lat=45.850065, zoom=11.3) %>%
-    addProviderTiles (providers$OpenStreetMap, group = "Colour") %>%
-    # Satellite basemap (imagery used to identify large wood)
+    # Changed: satellite imagery shown by default (imagery used to identify large wood and place catchers)
     addProviderTiles (providers$Esri.WorldImagery, group = "Satellite") %>%
+    addProviderTiles (providers$OpenStreetMap, group = "Street map") %>%
     # Task 7: slope raster
     addRasterImage(slope, colors = pal_slope, opacity = 0.6, project = FALSE,
                    maxBytes = 8 * 1024 * 1024, group = "Slope") %>%
@@ -84,7 +84,7 @@ output$map <- renderLeaflet({
               labels = "Channel and floodplain (heatmap extent)", opacity = 0.8, group = "Analysis extent") %>%
     # Task 8: layer control, including slope, satellite basemap and extra layers
     addLayersControl(
-      baseGroups = c("Colour", "Satellite"),
+      baseGroups = c("Satellite", "Street map"),
       overlayGroups = c("River", "Bridges", "Nearest distance", "Large Wood", "Heatmap", "Slope",
                         "LW catchers", "Reaches", "Upstream zones (2 km)", "Analysis extent"),
       options = layersControlOptions(collapsed = FALSE)
