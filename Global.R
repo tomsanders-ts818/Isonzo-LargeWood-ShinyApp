@@ -7,6 +7,18 @@
 ##          adapted by Tom Sanders for the River Isonzo        ##
 #################################################################
 
+# Load packages (also loaded here because Shiny runs Global.R before app.R on the server)
+library(shiny)
+library(leaflet)
+library(sf)
+library(raster)
+library(ggplot2)
+library(ggiraph)
+library(RColorBrewer)
+library(terra)
+library(leafem)
+library(dbscan)
+
 # G1 Load large wood, river, and bridge data ----
 # Load my files from the data folder
 lw_points <- st_read("data/LW_Isonzo.shp")
